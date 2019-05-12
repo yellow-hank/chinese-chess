@@ -519,7 +519,10 @@ void MainWindow::attackchess(int attacker_x,int attacker_y,int attacker_value,in
         chessboard[attacker_x][attacker_y] = -1;
     }
     copychessboard();
-    gamewin();
+    if(setupmode==0){
+        gamewin();
+    }
+
 }
 void MainWindow::gamewin(){
     gameover=true;
