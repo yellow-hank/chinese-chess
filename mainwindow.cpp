@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->deletebutton->hide();
     ui->deleteopen->hide();
     ui->setupopen->hide();
+    ui->restart->hide();
     pressLabel = ui->label;
     pressLabel->setText(tr(""));
     pressLabel->setAlignment(Qt::AlignCenter);
@@ -28,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->startbutton,SIGNAL(clicked()),this,SLOT(start_slot()));
     connect(ui->setupbutton,SIGNAL(clicked()),this,SLOT(setup_slot()));
     connect(ui->deletebutton,SIGNAL(clicked()),this,SLOT(delete_slot()));
-
+    connect(ui->restart,SIGNAL(clicked()),this,SLOT(restart_slot()));
 
 }
 
@@ -179,6 +180,7 @@ void MainWindow::start_slot(){
     ui->deleteopen->hide();
     ui->setupbutton->hide();
     ui->deletebutton->hide();
+    ui->restart->hide();
     copychessboard();
     gameover=false;
     initial_start=0;
@@ -187,15 +189,18 @@ void MainWindow::start_slot(){
 }
 void MainWindow::setup_slot(){
     ui->deletebutton->show();
+    ui->restart->show();
     setupmode++;
     initial_start=0;
     if(setupmode%2==0){
         ui->setupopen->hide();
+        gameover=true;
     }else{
         ui->setupopen->show();
+        gameover=false;
     }
     delete_count=0;
-    gameover=false;
+
 
 }
 void MainWindow::delete_slot(){
@@ -206,6 +211,11 @@ void MainWindow::delete_slot(){
     }else {
         ui->deleteopen->hide();
     }
+}
+void MainWindow::restart_slot(){
+    initialboard();
+    copychessboard();
+    this->repaint();
 }
 
 void MainWindow::copychessboard(){

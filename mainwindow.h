@@ -47,6 +47,7 @@ public slots:
     void start_slot();
     void setup_slot();
     void delete_slot();
+    void restart_slot();
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
